@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Box</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Urbanist:wght@500;700&display=swap');
+        * {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .con {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+            background-color: #ffffff;
+        }
+        #head {
+            width: 100%;
+            height: 70px;
+            background-color: #d1481f;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        #head img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            background-color: white;
+        }
+        #head .head-info {
+            margin-left: 15px;
+        }
+        #head h1 {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        #body {
+            width: 100%;
+            flex: 1;
+            overflow-y: auto;
+            background-color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #questions {
+            width: 100%;
+            background-color: #d1481f;
+            padding: 20px;
+            box-sizing: border-box;
+            border-top: 1px solid #ccc;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .question {
+            padding: 10px 20px;
+            background-color: white;
+            color: black;
+            border-radius: 5px;
+            cursor: pointer;
+            flex: 1 1 calc(33.333% - 20px);
+            text-align: center;
+        }
+        .message {
+            padding: 10px;
+            max-width: 70%;
+            border-radius: 10px;
+            margin: 5px 0;
+            display: table;
+            clear: both;
+            word-wrap: break-word;
+        }
+        .user-message {
+            float: right;
+            background-color: #d1481f;
+            color: white;
+            margin-right: 15px;
+        }
+        .bot-message {
+            float: left;
+            background-color: black;
+            color: white;
+            margin-left: 15px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #head h1 {
+                font-size: 1.2rem;
+            }
+            #head h6 {
+                font-size: 0.9rem;
+            }
+            .question {
+                flex: 1 1 calc(50% - 10px);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="con">
+    <div id="head">
+        <img src="./images/bot.jpg">
+        <div class="head-info">
+            <h1>CHATBOT</h1>
+        </div>
+    </div>
+    <div id="body">
+        <div class="message bot-message">Hi, how can I help you today?</div>
+    </div>
+    <div id="questions">
+        <div class="question" onclick="selectQuestion('What are your delivery options?')">What are your delivery options?</div>
+        <div class="question" onclick="selectQuestion('What are your shipping charges?')">What are your shipping charges?</div>
+        <div class="question" onclick="selectQuestion('What are your operating hours?')">What are your operating hours?</div>
+        <div class="question" onclick="selectQuestion('How can I track my order?')">How can I track my order?</div>
+        <div class="question" onclick="selectQuestion('Do you have any discount codes?')">Do you have any discount codes?</div>
+        <div class="question" onclick="selectQuestion('Can I talk to a live assistant?')">Can I talk to a live assistant?</div>
+        <div class="question" onclick="selectQuestion('What payment methods do you accept?')">What payment methods do you accept?</div>
+        <div class="question" onclick="selectQuestion('Can I customize my pizza?')">Can I customize my pizza?</div>
+        <div class="question" onclick="selectQuestion('Bye')">Bye</div>
+    </div>
+</div>
+
+<script>
+    const chatBody = document.getElementById('body');
+
+    function selectQuestion(question) {
+        // Add user message
+        const userMessage = document.createElement('div');
+        userMessage.className = 'message user-message';
+        userMessage.textContent = question;
+        chatBody.appendChild(userMessage);
+
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // Generate reply
+        setTimeout(function() {
+            const botMessage = document.createElement('div');
+            botMessage.className = 'message bot-message';
+
+            // Handle different user inputs
+            if (question === 'What are your delivery options?') {
+                botMessage.textContent = 'We offer fast and reliable delivery, ensuring your pizza arrives hot and fresh within 45 minutes. Plus, enjoy free delivery on your first 3 orders!';
+            } else if (question === 'What are your shipping charges?') {
+                botMessage.textContent = 'Shipping charges vary based on your location and the delivery option you select.';
+            } else if (question === 'What are your operating hours?') {
+                botMessage.textContent = 'We’re open from 10:00 AM to 11:00 PM every day, ready to serve you delicious pizzas whenever you\'re craving them!';
+            } else if (question === 'How can I track my order?') {
+                botMessage.textContent = 'After placing your order, you’ll receive a tracking link via SMS or email where you can monitor the status of your delivery in real-time.';
+            } else if (question === 'Do you have any discount codes?') {
+                botMessage.textContent = 'We frequently offer discount codes and promotions.';
+            } else if (question === 'Can I talk to a live assistant?') {
+                botMessage.textContent = 'Sure! I can connect you with a live customer service representative. Please wait a moment';
+            } else if (question === 'What payment methods do you accept?') {
+                botMessage.textContent = 'We accept all major credit/debit cards, UPI, and cash on delivery. You can also pay using popular wallets like Paytm and Google Pay.';
+            } else if (question === 'Can I customize my pizza?') {
+                botMessage.textContent = 'Absolutely! You can customize your pizza with your choice of toppings, crust, and sauces. Just select your preferences while placing your order.';
+            } else if (question === 'Bye') {
+                botMessage.textContent = 'Bye!';
+            }
+             else {
+                botMessage.textContent = 'Sorry, I didn\'t understand that.';
+            }
+
+            chatBody.appendChild(botMessage);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, 1000);
+    }
+</script>
+</body>
+</html>
